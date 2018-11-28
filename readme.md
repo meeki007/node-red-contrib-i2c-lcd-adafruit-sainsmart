@@ -2,7 +2,7 @@ node-red-contrib-i2c-lcd-adafruit-sainsmart
 ===========================================
 
 
-<a href="http://nodered.org" target="_new">Node-RED</a> Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or conpatable 16x2 LCD.
+<a href="http://nodered.org" target="_new">Node-RED</a> Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or compatible 16x2 LCD.
 
 ---
 
@@ -48,7 +48,7 @@ npm install node-red-contrib-i2c-lcd-adafruit-sainsmart
 
 ## i2c_LCD_Input
 
-i2c_LCD_Input - Node for recording a button press from the controler. 
+i2c_LCD_Input - Node for recording a button press from the controller. 
 
 It will send button presses to:
 msg.button_name 
@@ -79,7 +79,7 @@ Polling ms - The speed, in milliseconds, at witch the i2c port expander (MCP2301
 
 ## i2c_LCD_Output
 
-i2c_LCD_Output - Node for sending txt and changing screen color of the LCD. Settings button changes between Basic or Advanced. If your just looking to put some txt onto the screen and want to have it clear the old message for you and dim the screen after an ammount of time you define then Basic is for you. Advanced is if you wish to control every aspect of the message. You control clearing the screen, turning it on and off etc. This is needed if your going to creat your own LCD menu system or somting complecated.
+i2c_LCD_Output - Node for sending txt and changing screen color of the LCD. Settings button changes between Basic or Advanced. If you are just looking to put some txt onto the screen and want to have it clear the old message for you and dim the screen after an ammount of time you define then Basic is for you. Advanced is if you wish to control every aspect of the message. You control clearing the screen, turning it on and off etc. This is needed if your going to create your own LCD menu system or something complicated.
 
 ![output_basic.png](./doc/output_basic.png)
 ![output_advanced.png](./doc/output_advanced.png)
@@ -180,12 +180,15 @@ Contact me at meeki007@gmail.com
 
 ## Contributor of Project
 
-Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a buisness that supports opensource. They needed this node for a monitoring and automation project for their equipment.
+Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business that supports opensource. They needed this node for a monitoring and automation project for their equipment.
 
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
 
-version 0.7.26
+version 0.7.28
+Fix documentation
+
+version 0.7.27
 First Public release
 
 
