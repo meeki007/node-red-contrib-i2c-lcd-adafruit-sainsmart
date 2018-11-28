@@ -185,6 +185,9 @@ Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
 
+version 0.7.29
+Fix Documentation in node
+
 version 0.7.28
 Fix documentation
 
