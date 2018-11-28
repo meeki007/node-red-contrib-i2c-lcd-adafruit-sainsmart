@@ -1,0 +1,355 @@
+<script type="text/x-red" data-template-name="i2c_LCD_Output">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-manufacturer"><i class="fa fa-industry"></i> Manufacture</label>
+      <select id="node-input-manufacturer" style="width: 30%">
+          <option value="adafruit">adafruit</option>
+          <option value="Sainsmart">Sainsmart</option>
+      </select>
+  </div>
+  <div class="form-row">
+      <label for="node-input-i2c_device_number"><i class="fa fa-cog"></i> i2c Device #</label>
+      <input type="text" id="node-input-i2c_device_number" style="width: 30%" placeholder="1">
+  </div>
+  <div class="form-row">
+      <label for="node-input-i2c_address"><i class="fa fa-cog"></i> i2c Address</label>
+      <input type="text" id="node-input-i2c_address" style="width: 30%" placeholder="0x20">
+  </div>
+  <div class="form-row">
+      <label for="node-input-Line1"><i class="fa fa-ellipsis-h"></i> Line1</label>
+      <input type="text" id="node-input-Line1" style="width:calc(70% - 1px)"/>
+  </div>
+  <div class="form-row">
+      <label for="node-input-Line2"><i class="fa fa-ellipsis-h"></i> Line2</label>
+      <input type="text" id="node-input-Line2" style="width:calc(70% - 1px)"/>
+  </div>
+  <div class="form-row">
+      <label for="node-input-settings"><i class="fa fa-cog"></i> Settings</label>
+      <select id="node-input-settings" style="width: 30%">
+          <option value="Basic">Basic</option>
+          <option value="Advanced">Advanced</option>
+      </select>
+  </div>
+  <div class="form-row node-type-basic_selections">
+      <label><i class="fa fa-cog"></i> Led Color</label>
+      <select id="node-input-basic_screen_color" style="width: 50%">
+          <option value="RED">RED</option>
+          <option value="GREEN">GREEN</option>
+          <option value="BLUE">BLUE</option>
+          <option value="YELLOW">YELLOW</option>
+          <option value="TEAL">TEAL</option>
+          <option value="VIOLET">VIOLET</option>
+          <option value="WHITE">WHITE</option>
+          <option value="ON">ON</option>
+      </select>
+  </div>
+  <div class="form-row node-type-basic_selections">
+      <label><i class="fa fa-clock-o"></i> Off After</label>
+      <input type="text" id="node-input-timeLimit" placeholder="3" style="padding-left: 5px; width: 50%">
+      <input type="hidden" id="node-input-timeLimitType">
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label><i class="fa fa-ellipsis-h"></i>  clear</label>
+      <input type="text" id="node-input-advanced_clear" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label><i class="fa fa-ellipsis-h"></i>  close</label>
+      <input type="text" id="node-input-advanced_close" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label><i class="fa fa-ellipsis-h"></i>  color</label>
+      <input type="text" id="node-input-advanced_color" style="width:calc(50% - 1px)"/>
+  </div>
+  <br>
+  <br>
+  <div class="form-row node-type-advanced_selections">
+      <label><i class="fa fa-ellipsis-h"></i>  Custom Char</label>
+      <input type="text" id="node-input-advanced_char0" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char1" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char2" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char3" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char4" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char5" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char6" style="width:calc(50% - 1px)"/>
+  </div>
+  <div class="form-row node-type-advanced_selections">
+      <label></i>             </label>
+      <input type="text" id="node-input-advanced_char7" style="width:calc(50% - 1px)"/>
+  </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="i2c_LCD_Output">
+    <p>A Node to un-divide a voltage that was divided prior to taking a reading to protect a input when reading its value.</p>
+    <p>Just insert the node in between two others. Then the voltage received can be corrected, undivided, to show voltage before the physical voltage devider.</p>
+    <p><strong>Property:</strong><br/>
+    Define the msg property name you wish. The name you select (msg.example) will also be the output property. The payload must be a number! Anything else will try to be parsed into a number and rejected if that fails.</p>
+    <p><strong>Voltage_In:</strong><br/>
+    Select the voltage scale for the Input. Voltages from diffrent sources may be represented in diffrent scales. Example; a ADC (Anolog to Digital Converter may output in mV. You must select the correct input voltage scale or your output will be wrong.</p>
+    <p><strong>Resistor:</strong><br/>
+    Select the resistor scale for the resistor used. Then enter the resistance.</p>
+    <p><strong>Voltage_Out:</strong><br/>
+    Select the voltage scale you want for the Output. If you have selected the correct scale on the input the output scale you have selected will be automaticly converted to the voltage you want.</p>
+    <p><strong>Round_Output:</strong><br/>
+    If you would like your output to be rounded then select the level you want. Note: if you choose not to round the maximum integer length is 15 digits. The maximum length after a decimals is 17 digits. </p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("i2c_LCD_Output", {
+        category: 'i2cLED',
+        defaults: {
+            name: {value:""},
+            manufacturer: {value:"adafruit"},
+            Line1: {value:"Line1",required:true},
+            Line2: {value:"Line2",required:true},
+            settings: {value:"Basic"},
+            //BASIC
+            //Add color select for manufacturer if settings are set to basic
+            basic_screen_color: {value:"ON"},
+            timeLimit: {value:3,validate:RED.validators.number()},
+            timeLimitType: {value:"seconds"},
+            //hexadec must be stored as a sting and then changed to a number later. else it converts it to its corisponding number fo the user to see
+            i2c_device_number: {value:1,validate:RED.validators.number()},
+            i2c_address: {string:"0x20"},
+            //Advanced
+            advanced_clear: {value:"clear",required:true},
+            advanced_close: {value:"close",required:true},
+            advanced_color: {value:"color",required:true},
+            advanced_char0: {value:"char0",required:true},
+            advanced_char1: {value:"char1",required:true},
+            advanced_char2: {value:"char2",required:true},
+            advanced_char3: {value:"char3",required:true},
+            advanced_char4: {value:"char4",required:true},
+            advanced_char5: {value:"char5",required:true},
+            advanced_char6: {value:"char6",required:true},
+            advanced_char7: {value:"char7",required:true},
+
+
+
+        },
+        color:"#FFCC66",
+        inputs:1,
+        outputs:0,
+        icon: "i2c_LCD_Output.png",
+        align: "right",
+        label: function() {
+            return this.name || "i2c_LCD_Output";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function()
+        {
+          // defaults
+          this.i2c_device_number = !this.i2c_device_number ? 1 : this.i2c_device_number;
+          this.i2c_address = !this.i2c_address ? "0x20" : this.i2c_address;
+          this.manufacturer = !this.manufacturer ? "adafruit" : this.manufacturer;
+          //set default msg value for line 1
+          if (this.Line1 === undefined)
+          {
+            $("#node-input-Line1").val("Line1");
+          }
+          $("#node-input-Line1").typedInput({default:'msg',types:['msg']});
+          //set default msg value for line 2
+          if (this.Line2 === undefined)
+          {
+            $("#node-input-Line2").val("Line2");
+          }
+          $("#node-input-Line2").typedInput({default:'msg',types:['msg']});
+          this.settings = !this.settings ? "Basic" : this.settings;
+
+          $("#node-input-settings").change(function()
+          {
+            if ($(this).val() == "Advanced")
+            {
+              $(".node-type-basic_selections").hide();
+              $(".node-type-advanced_selections").show();
+            }
+            else
+            {
+              $(".node-type-basic_selections").show();
+              $(".node-type-advanced_selections").hide();
+            }
+          });
+          //BASIC
+          this.basic_screen_color = !this.basic_screen_color ? "ON" : this.basic_screen_color;
+          //Add color select for manufacturer if settings are set to basic
+          this.timeLimit = !this.timeLimit ? 3 : this.timeLimit;
+          this.timeLimitType = !this.timeLimitType ? "seconds" : this.timeLimitType;
+          // typed input for time throttle
+          $("#node-input-timeLimit").typedInput({
+              default: "seconds",
+              typeField: $("#node-input-timeLimitType"),
+              types: [
+                  {value: "milliseconds", label: "milliseconds", hasValue: true},
+                  {value: "seconds", label: "seconds", hasValue: true},
+                  {value: "minutes", label: "minutes", hasValue: true},
+                  {value: "hours", label: "hours", hasValue: true}
+              ]
+          });
+          //ADVANCED
+          if (this.advanced_clear === undefined)
+          {
+            $("#node-input-advanced_clear").val("clear");
+          }
+          $("#node-input-advanced_clear").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_close === undefined)
+          {
+            $("#node-input-advanced_close").val("close");
+          }
+          $("#node-input-advanced_close").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_color === undefined)
+          {
+            $("#node-input-advanced_color").val("color");
+          }
+          $("#node-input-advanced_color").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char0 === undefined)
+          {
+            $("#node-input-advanced_char0").val("char0");
+          }
+          $("#node-input-advanced_char0").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char1 === undefined)
+          {
+            $("#node-input-advanced_char1").val("char1");
+          }
+          $("#node-input-advanced_char1").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char2 === undefined)
+          {
+            $("#node-input-advanced_char2").val("char2");
+          }
+          $("#node-input-advanced_char2").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char3 === undefined)
+          {
+            $("#node-input-advanced_char3").val("char3");
+          }
+          $("#node-input-advanced_char3").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char4 === undefined)
+          {
+            $("#node-input-advanced_char4").val("char4");
+          }
+          $("#node-input-advanced_char4").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char5 === undefined)
+          {
+            $("#node-input-advanced_char5").val("char5");
+          }
+          $("#node-input-advanced_char5").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char6 === undefined)
+          {
+            $("#node-input-advanced_char6").val("char6");
+          }
+          $("#node-input-advanced_char6").typedInput({default:'msg',types:['msg']});
+          if (this.advanced_char7 === undefined)
+          {
+            $("#node-input-advanced_char7").val("char7");
+          }
+          $("#node-input-advanced_char7").typedInput({default:'msg',types:['msg']});
+
+
+
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/x-red" data-template-name="i2c_LCD_Input">
+  <div class="form-row">
+      <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
+  <div class="form-row">
+      <label for="node-input-i2c_device_number"><i class="fa fa-cog"></i> i2c Device #</label>
+      <input type="text" id="node-input-i2c_device_number" style="width: 30%" placeholder="1">
+  </div>
+  <div class="form-row">
+      <label for="node-input-i2c_address"><i class="fa fa-cog"></i> i2c Address</label>
+      <input type="text" id="node-input-i2c_address" style="width: 30%" placeholder="0x20">
+  </div>
+  <div class="form-row">
+      <label for="node-input-i2c_polling"><i class="fa fa-cog"></i> Polling ms</label>
+      <input type="text" id="node-input-i2c_polling" style="width: 30%" placeholder="200">
+  </div>
+  <br>
+  <br>
+  <b>OUTPUTS</b>
+  <br>
+  msg.button_name
+  <br>
+  msg.button_state
+</script>
+
+<script type="text/x-red" data-help-name="i2c_LCD_Input">
+    <p>A Node to un-divide a voltage that was divided prior to taking a reading to protect a input when reading its value.</p>
+    <p>Just insert the node in between two others. Then the voltage received can be corrected, undivided, to show voltage before the physical voltage devider.</p>
+    <p><strong>Property:</strong><br/>
+    Define the msg property name you wish. The name you select (msg.example) will also be the output property. The payload must be a number! Anything else will try to be parsed into a number and rejected if that fails.</p>
+    <p><strong>Voltage_In:</strong><br/>
+    Select the voltage scale for the Input. Voltages from diffrent sources may be represented in diffrent scales. Example; a ADC (Anolog to Digital Converter may output in mV. You must select the correct input voltage scale or your output will be wrong.</p>
+    <p><strong>Resistor:</strong><br/>
+    Select the resistor scale for the resistor used. Then enter the resistance.</p>
+    <p><strong>Voltage_Out:</strong><br/>
+    Select the voltage scale you want for the Output. If you have selected the correct scale on the input the output scale you have selected will be automaticly converted to the voltage you want.</p>
+    <p><strong>Round_Output:</strong><br/>
+    If you would like your output to be rounded then select the level you want. Note: if you choose not to round the maximum integer length is 15 digits. The maximum length after a decimals is 17 digits. </p>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType("i2c_LCD_Input", {
+        category: 'i2cLED',
+        defaults: {
+            name: {value:""},
+            //hexadec must be stored as a sting and then changed to a number later. else it converts it to its corisponding number fo the user to see
+            i2c_device_number: {value:1,validate:RED.validators.number()},
+            i2c_address: {string:"0x20"},
+            i2c_polling: {value:200,validate:RED.validators.number()},
+        },
+        color:"#FFCC66",
+        inputs:0,
+        outputs:1,
+        icon: "i2c_LCD_Input.png",
+        align: "left",
+        label: function() {
+            return this.name || "i2c_LCD_Input";
+        },
+        labelStyle: function() {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function()
+        {
+          // defaults
+          this.i2c_device_number = !this.i2c_device_number ? 1 : this.i2c_device_number;
+          this.i2c_address = !this.i2c_address ? "0x20" : this.i2c_address;
+          this.i2c_polling = !this.i2c_polling ? 200 : this.i2c_device_number;
+        }
+    });
+</script>
