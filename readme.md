@@ -1,6 +1,9 @@
 node-red-contrib-i2c-lcd-adafruit-sainsmart
-===========================================
 
+Does not work with nodeJS 10 or higher. Please use nodeJS 8 for now.
+===========================================
+## Issue is with a depends ( adafruit-i2c-lcd )
+## working on writing all the I2C-Bus commands and bypassing the depends
 
 <a href="http://nodered.org" target="_new">Node-RED</a> Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or compatible 16x2 LCD.
 
