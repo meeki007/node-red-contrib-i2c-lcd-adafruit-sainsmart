@@ -1,40 +1,30 @@
-node-red-contrib-i2c-lcd-adafruit-sainsmart
-===========================================
+node-red-contrib-anolog-to-digital-converter-raspberry-pi
+==================================
 
-# Now supports node-red version 1.0.0 or greater
-Requires nodeJS v10 or greater
-Requires npm v4 or or greater
 
-<a href="http://nodered.org" target="_new">Node-RED</a> Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or compatible 16x2 LCD.
+<a href="http://nodered.org" target="_new">Node-RED</a> A node-red node providing access to a ADS1x15 I2C analog to digital converter using a raspberry pi.
 
 ---
 
 ## Table of Contents
-* [Install](#Install)
-* [i2c_LCD_Input](#i2c_LCD_Input)
-  * [i2c_Device](#i2c_Device)
+* [Install](#install)
+* [Usage](#usage)
+  * [Name](#Name)
+  * [Property](#Property)
+  * [Chipset](#Chipset)
   * [i2c_Address](#i2c_Address)
-  * [Polling_ms](#Polling_ms)
-* [i2c_LCD_Output](#i2c_LCD_Output)
-  * [Manufacture](#Manufacture)
-  * [i2c_Device_](#i2c_Device_)
-  * [i2c_Address_](#i2c_Address_)
-  * [Line1_and_Line2](#Line1_and_Line2)
-* [Settings](#Settings)
-  * [Basic](#Basic)
-  * [Led_Color](#Led_Color)
-  * [Off_After](#Off_After)
-  * [Advanced](#Advanced)
-  * [clear](#clear)
-  * [close](#close)
-  * [color](#color)
-  * [Custom_Char](#Custom_Char)
+  * [Channel](#Channel)
+  * [Samples](#Round_Output)
+  * [Gain](#Gain)
 * [Example Flows](#example-flows)
-  * [Example](#example)
+  * [Simple_Example](#simple_example)
+  * [advance_example](#advance_example)
+  * [treeing](#treeing)
+  * [Dropped_Request](#Dropped_Request)
 * [Bugs / Feature request](#bugs--feature-request)
 * [License](#license)
 * [Work](#work)
-* [Contributor of Project](#contributor)
+* [Contributor_of_Project](#Contributor_of_Project)
 
 ---
 
@@ -45,129 +35,92 @@ Install with node-red Palette Manager or,
 Run the following command in your Node-RED user directory - typically `~/.node-red`:
 
 ```
-npm install node-red-contrib-i2c-lcd-adafruit-sainsmart
+npm install node-red-contrib-anolog-to-digital-converter-raspberry-pi
 ```
 
 
-## i2c_LCD_Input
+## Usage
 
-i2c_LCD_Input - Node for recording a button press from the controller. 
+To get a voltage or difference of voltage from a ADS1115 or ADS1015 analog to digital converter just select the correct setting for your device and trigger the node.
 
-It will send button presses to:
-msg.button_name 
-msg.button_state
+![example1.png](./doc/example1.png)
 
-example: 
-If you press the down button you will recieve, 
-msg.button_name = DOWN, msg.button_state = pressed
 
-When you relesse the down button you will recieve,
-msg.button_name = DOWN, msg.button_state = released
+### Name
 
-![msgbtn1.png](./doc/msgbtn1.png)
-![input.png](./doc/input.png)
+Define the msg name if you wish to change the name displayed on the node.
 
-### i2c_Device
+### Property
 
-i2c Device # - The device number by default is set to 1. This is the number for most current raspberry pi's. i2c device numbers can range from i2c-0 to i2c-256. To find your device from the command line use 
+Define the msg property name you wish. The name you select (msg.example) will also be the output property</p>
+The payload must be a number! Anything else will try to be parsed into a number and rejected if that fails.
+
+### Chipset
+
+The Chipset by default is set to 1115. The Chipset is the version of ads supported. If you have an ads1015 select that option.
 
 ### i2c_Address
 
-i2c Address - The Address by default is set to 0x20. This is the Address for Adafruit and sainsmart units that use the MCP23017 i2c port expander. The rang the MCP23017 uses is a hex value from 0x20 to 0x27. If you need further information please see data on the MCP23017.
+The Address by default is set to 0x48. You can setup the ADS1X15 with one of four addresses, 0x48, 0x49, 0x4a, 0x4b. Please see ads1X15 documentation for more information
 
-### Polling_ms
+### Channel
 
-Polling ms - The speed, in milliseconds, at witch the i2c port expander (MCP23017) polls button presses. By default is set to 200ms. Also if the i2c_LCD_Input not is not used polling is disabled as there is no need to listen for button press events. Averag people have a hard time responding to a stimulus faster than that. The minimum value allowed is 40ms; however if you have other devices using the i2c bus you will be fighing for use of the bus.
+The Channel may be used for Single-ended measurements (A0-GND) or Differential measurements (A0-A1). Single-ended measurements measure voltages relative to a shared reference point which is almost always the main units ground. Differential measurements are “floating”, meaning that it has no reference to ground. The measurement is taken as the voltage difference between the two wires. Example: The voltage of a battery can be taken by connecting A0 to one terminal and A1 to the other.
+
+### Samples
+
+Select the sample per second you want your ADS to make. Higher rate equals more samples taken before being averaged and sent back from the ADS. Please see ads1X15 documentation for more information
+
+### Gain
+
+I  Select the Gain you want. To increase accuracy of smaller voltage signals, the gain can be adjusted to a lower range. Do NOT input voltages higher than the range or device max voltage, pi 3.3v use a voltage devider to lover input voltages as needed.
+
+## Example Flows
+
+Examples showing how to use the voltage_undivider.
 
 
-## i2c_LCD_Output
+### simple_example
 
-i2c_LCD_Output - Node for sending txt and changing screen color of the LCD. Settings button changes between Basic or Advanced. If you are just looking to put some txt onto the screen and want to have it clear the old message for you and dim the screen after an ammount of time you define then Basic is for you. Advanced is if you wish to control every aspect of the message. You control clearing the screen, turning it on and off etc. This is needed if your going to create your own LCD menu system or something complicated.
+![examplenode.png](./doc/examplenode.png)
 
-![output_basic.png](./doc/output_basic.png)
-![output_advanced.png](./doc/output_advanced.png)
-
-### Manufacture
-
-Manufacture - The maker of the product. Default value is set to Adafruit. sainsmart clone uses a backlight and then a seperate RGB led. It requires sending some extra bytes to turn on and off the backlight. Make sure you select the correct maker.
-
-### i2c_Device_
-
-i2c Device # - The device number by default is set to 1. This is the number for most current raspberry pi's. i2c device numbers can range from i2c-0 to i2c-256. To find your device from the command line use
-
-### i2c_Address_
-
-i2c Address - The Address by default is set to 0x20. This is the Address for Adafruit and sainsmart units that use the MCP23017 i2c port expander. The rang the MCP23017 uses is a hex value from 0x20 to 0x27. If you need further information please see data on the MCP23017.
-
-### Line1_and_Line2
-
-Line1 - The text sent to the first line of the LCD screen
-Line2 - The text sent to the second line of the LCD Screen
-
-You can send basic lines of text to the screen without much worry. However if you get fancy with the characters you send things may not show up on the screen as expected. 
-If you send a backslash \ you will get a  Yen symbol. You may send any char to the screen that is in the HD44780 char sheet.
-If you want to send the letter Q you can send a msg with Q or you can send a msg with \x51 as you can see on the chart its in coll 5 and row 1.
-
-![Line1_n_2_example.png](./doc/Line1_n_2_example.png)
-
-```JSON
-[{"id":"e5bc0af2.967648","type":"i2c_LCD_Output","z":"7edb64d7.2216cc","name":"","manufacturer":"adafruit","Line1":"Line1","Line2":"Line2","settings":"Basic","basic_screen_color":"ON","timeLimit":3,"timeLimitType":"seconds","i2c_device_number":1,"i2c_address":"0x20","advanced_clear":"clear","advanced_close":"close","advanced_color":"color","advanced_char0":"char0","advanced_char1":"char1","advanced_char2":"char2","advanced_char3":"char3","advanced_char4":"char4","advanced_char5":"char5","advanced_char6":"char6","advanced_char7":"char7","x":1140,"y":260,"wires":[]},{"id":"17b1c82d.6a8488","type":"change","z":"7edb64d7.2216cc","name":"\\x51","rules":[{"t":"set","p":"Line1","pt":"msg","to":"P\\x51RS \\x51 ","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":970,"y":260,"wires":[["e5bc0af2.967648"]]},{"id":"d2f15605.3ed8b8","type":"inject","z":"7edb64d7.2216cc","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":820,"y":260,"wires":[["17b1c82d.6a8488"]]},{"id":"69b53087.ded8","type":"comment","z":"7edb64d7.2216cc","name":"hex for the letter Q","info":"","x":970,"y":220,"wires":[]}]
+```
+[{"id":"2cd25fcc.2e978","type":"inject","z":"95ed73ce.f4c49","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":380,"y":300,"wires":[["16a39eb9.adf799"]]},{"id":"16a39eb9.adf799","type":"ads1x15-raspi","z":"95ed73ce.f4c49","property":"ffff","name":"","chip":"IC_ADS1115","i2c_address":"ADDRESS_0x48","channel":"DIFF_1_3","samplesPerSecond":"SPS_250","progGainAmp":"PGA_4_096V","x":560,"y":300,"wires":[["1c612a9f.05f2f5"]]},{"id":"1c612a9f.05f2f5","type":"debug","z":"95ed73ce.f4c49","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":730,"y":300,"wires":[]}]
 ```
 
-![asciichart.png](./doc/asciichart.png)
+<br>
 
-## Settings
+### advance_example
+![examplenode2.png](./doc/examplenode2.png)
 
-Settings - Basic or Advanced.
+```
+[{"id":"9fa062dc.6e1b6","type":"inject","z":"a074224d.a6b91","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":140,"y":240,"wires":[["2bfc185d.72ddd8"]]},{"id":"2bfc185d.72ddd8","type":"ads1x15-raspi","z":"a074224d.a6b91","property":"x48_A0-GND","name":"x48_A0-GND","chip":"IC_ADS1115","i2c_address":"ADDRESS_0x48","channel":"CHANNEL_0","samplesPerSecond":"SPS_250","progGainAmp":"PGA_4_096V","x":350,"y":140,"wires":[["e219cd74.4ea59"]]},{"id":"edb67462.6fbb88","type":"debug","z":"a074224d.a6b91","name":"","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","x":550,"y":220,"wires":[]},{"id":"e219cd74.4ea59","type":"ads1x15-raspi","z":"a074224d.a6b91","property":"x48_A1-GND","name":"x48_A1-GND","chip":"IC_ADS1115","i2c_address":"ADDRESS_0x48","channel":"CHANNEL_1","samplesPerSecond":"SPS_250","progGainAmp":"PGA_4_096V","x":350,"y":200,"wires":[["bc5b5300.34dc1"]]},{"id":"bc5b5300.34dc1","type":"ads1x15-raspi","z":"a074224d.a6b91","property":"x48_A2-GND","name":"x48_A2-GND","chip":"IC_ADS1115","i2c_address":"ADDRESS_0x48","channel":"CHANNEL_2","samplesPerSecond":"SPS_250","progGainAmp":"PGA_4_096V","x":350,"y":260,"wires":[["6a55c7a6.54e078"]]},{"id":"6a55c7a6.54e078","type":"ads1x15-raspi","z":"a074224d.a6b91","property":"x48_A3-GND","name":"x48_A3-GND","chip":"IC_ADS1115","i2c_address":"ADDRESS_0x48","channel":"CHANNEL_3","samplesPerSecond":"SPS_250","progGainAmp":"PGA_4_096V","x":350,"y":320,"wires":[["edb67462.6fbb88"]]}]
+```
 
-### Basic
+<br>
 
-Basic setting options
+### treeing
 
-### Led_Color
+![treeing.png](./doc/treeing.png)
+<br>
+<br>
+This is supported but highly discouraged. A warning message will display when this method is used.
+<br>
+The ADS1X15 cannot process more than one task at a time. To support this a delay is added to each trigger and while loop is used to check when a slot is available. This adds overhead that is not needed if the user just daisy-chain the nodes and sets the msg.payload to a more appropriate name.
+<br>
+Please import and use the advance example above if you need direction.
 
-Led Color - Select the color for your LED. The default option is ON.
+<br>
 
-### Off_After
+### Dropped_Request
 
-Off After - Set the ammount of time the LED stays on after a message is sent to the LCD
+If you try to get more than one voltage reading in 100ms, from the same address, and channel, the node will drop the msg triggering the event.<br> To stop this error just lower the amount of trigger events your sending to the node.  
 
-### Advanced
 
-Advanced setting options - in this mode you control the LCD. It does not turn off on its own. It does not clear the screen on its own. Please see the examples section for a flow showing how to use all the settings.
-
-### clear
-
-clear - Used to clear the text on the LCD. boolan true/false.
-example: send the boolan value of true to msg.clear and it will clear the screen.
-If you dont have to do some quick writes the screen avoid using clear. It takes 1.64 milliseconds using clear. It only takes 40 microseconds to write to the screen. So if you can write over whats there if you need to be fast.
-
-### close
-
-close - Used to stop the polling. Stops buttons from registering. CAN ONLY BE STOPPED. You must re-deploy your node or restart node red. Set msg.close to boolian true if you want to stop polling. you can still send messages to the screen. Good if you want to stop polling if you detect a i2c buss issue. Or you want to stop any chance of a user input.
-
-### color
-
-color - Used to set the color of the LCD. this also turns on the LCD when you set a color.
-If you wanted to turn on the LCD and set the color to GREEN you would send a message to msg.color with the value of GREEN.
-If you only have a one color screen you can send a message to msg.color with the value of ON
-To turn off the screen send a value of OFF
-OPTIONS ARE: ON, OFF, RED, GREEN, BLUE, YELLOW, TEAL, VIOLET, WHITE
-
-### Custom_Char
-
-Custom Char - For saving custom characters to be used in a message. 
-You can create your own characters. check out https://www.quinapalus.com/hd44780udg.html
-They must be sent in a decimal format. example: 31,24,24,30,24,24,24,0
-send them to msg.char0 to msg.char7 , only 8 total may be stored at any time.
-
-Using Custom Char - you call your custom char in a message with \x00 for the char sent with msg.char0 and up to \x07 for the char sent with msg.char7
-
-see the example shown for Line1 & 2 for sending the letter Q
 
 
 ## Bugs / Feature request
-Please [report](https://github.com/meeki007/node-red-contrib-i2c-lcd-adafruit-sainsmart/issues) bugs and feel free to [ask](https://github.com/meeki007/node-red-contrib-i2c-lcd-adafruit-sainsmart/issues) for new features directly on GitHub.
+Please [report](https://github.com/meeki007/node-red-contrib-ads1x15-raspi/issues) bugs and feel free to [ask](https://github.com/node-red-contrib-ads1x15-raspi/issues) for new features directly on GitHub.
 
 
 ## License
@@ -178,33 +131,48 @@ This project is licensed under [Apache 2.0](http://www.apache.org/licenses/LICEN
 _Need a node?
 _Need automation work?
 _Need computers to flip switches?
-  
+
 Contact me at meeki007@gmail.com
 
 
-## Contributor of Project
+## Contributor_of_Project
 
-Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business that supports opensource. They needed this node for a monitoring and automation project for their equipment.
+Thanks to [Kevin Fitzgerald AKA kfitzgerald](https://github.com/kfitzgerald/raspi-kit-ads1x15#readme) for his work on raspi-kit-ads1x15. It made making this node for node-red possible.
+<br>
+Thank you to Andre van Amerongen; took the time to let me know about multiple trigger / treeing issue.
 
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
 
-version 0.8.54
-Add support for node-red greater than v.0.8
-
-version 0.7.31
-Warn about support
-
-version 0.7.30
-Fix json file 
-
-version 0.7.29
-Fix Documentation in node
-
-version 0.7.28
-Fix documentation
-
-version 0.7.27
+version 0.2.13
+<br>
 First Public release
-
-
+<br>
+<br>
+version 0.3.13
+<br>
+Updated node to support the input event callback function, and add Backwards compatibility
+<br>
+more info found here: [https://nodered.org/blog/2019/09/20/node-done](https://nodered.org/blog/2019/09/20/node-done)
+<br>
+<br>
+version 0.4.15
+<br>
+Bug fix: no error msg when treeing node / triggering multiple nodes at the same time
+<br>
+New feature: added Asynchronous Function to handle treeing<br>
+Also added duplicate trigger drop on same msg triggering the same chip, address, and channel in less than 100ms
+<br>
+<br>
+version 0.4.16
+<br>
+Updated Documentation
+<br>
+<br>
+<br>
+version 0.4.19
+<br>
+Added more verbose statment for faild connection to ADC. To tell user on what chip, address and channel.
+<br>
+Fixed chip selction being stuck and unable to select ads1015. No longer stuck on ADS1115 mode.
+<br>
