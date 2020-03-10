@@ -189,7 +189,7 @@ Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
 
-version 0.8.53
+version 0.8.54
 Add support for node-red greater than v.0.8
 
 version 0.7.31
@@ -206,6 +206,5 @@ Fix documentation
 
 version 0.7.27
 First Public release
-
 
 
