@@ -1,9 +1,9 @@
 node-red-contrib-i2c-lcd-adafruit-sainsmart
 ===========================================
 
-# Not Supported past node-red v0.8x
-This will not work on new versions of node red.
-Does not work with nodeJS 10 or higher. Please use nodeJS 8
+# Now supports node-red version 1.0.0 or greater
+Requires nodeJS v10 or greater
+Requires npm v4 or or greater
 
 <a href="http://nodered.org" target="_new">Node-RED</a> Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or compatible 16x2 LCD.
 
@@ -165,6 +165,7 @@ Using Custom Char - you call your custom char in a message with \x00 for the cha
 
 see the example shown for Line1 & 2 for sending the letter Q
 
+
 ## Bugs / Feature request
 Please [report](https://github.com/meeki007/node-red-contrib-i2c-lcd-adafruit-sainsmart/issues) bugs and feel free to [ask](https://github.com/meeki007/node-red-contrib-i2c-lcd-adafruit-sainsmart/issues) for new features directly on GitHub.
 
@@ -187,6 +188,9 @@ Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business
 
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
+
+version 0.8.53
+Add support for node-red greater than v.0.8
 
 version 0.7.31
 Warn about support
