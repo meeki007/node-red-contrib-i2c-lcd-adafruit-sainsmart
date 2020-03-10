@@ -218,8 +218,8 @@ module.exports = function(RED)
     {
       //do nothing as the input node handles polling
       lcd.clear();
-      lcd.backlight(lcd.colors.ON);
-      lcd.writeByte('polling enabled', true);
+      lcd.backlight(lcd.colors.OFF);
+      //lcd.writeByte('polling enabled', true);
     }
     else if ( ( first_deploy == true ) && ( deployed_i2c_LCD_Output == true ) )
     {
