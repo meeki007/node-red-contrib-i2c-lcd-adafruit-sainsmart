@@ -93,11 +93,25 @@ Manufacture - The maker of the product. Default value is set to Adafruit. sainsm
 
 ### i2c_Device_
 
-i2c Device # - The device number by default is set to 1. This is the number for most current raspberry pi's. i2c device numbers can range from i2c-0 to i2c-256. To find your device from the command line use
+i2c Device # - The device number by default is set to 1. This is the number for most current raspberry pi's. i2c device numbers can range from i2c-0 to i2c-256. To find your device from the command line in linux use.
+```
+$ ls /dev | grep i2c
+```
+A list of all avalible i2c chips will be listed.
+
 
 ### i2c_Address_
 
 i2c Address - The Address by default is set to 0x20. This is the Address for Adafruit and sainsmart units that use the MCP23017 i2c port expander. The rang the MCP23017 uses is a hex value from 0x20 to 0x27. If you need further information please see data on the MCP23017.
+Also you can install i2cdetect to list all of your detected devices addresses.
+```
+$ sudo i2cdetect -y your_device_numer_here
+```
+on my raspberry pi it is 1 so....
+```
+$ sudo i2cdetect -y 1
+```
+
 
 ### Line1_and_Line2
 
@@ -188,6 +202,9 @@ Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business
 
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
+
+version 0.8.56
+Update documentation for use of I2C
 
 version 0.8.55
 Fix non breaking doubble listing of nodes

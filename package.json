@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-i2c-lcd-adafruit-sainsmart",
-  "version": "0.8.55",
+  "version": "0.8.56",
   "description": "Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or conpatable 16x2 LCD. ",
   "homepage": "http://github.com/meeki007/node-red-contrib-voltage_undivider",
   "bugs": {
