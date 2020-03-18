@@ -203,6 +203,10 @@ Thanks to [SunValleyFoods](https://www.sunvalleyfoods.com/) for being a business
 ## release notes ##
 0.0.0 = (majorchange) . (new_feature) . (bugfix-simple_mod)
 
+version 0.8.57
+Fix user error msg for i2c polling number.
+Was telling user i2c device when it was refering to polling. 
+
 version 0.8.56
 Update documentation for use of I2C
 

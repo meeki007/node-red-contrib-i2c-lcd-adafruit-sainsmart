@@ -673,7 +673,7 @@ module.exports = function(RED)
     //Check to see that i2c polling is a number
 //i2c polling
     is_a_number_check(this.i2c_polling, 'Polling in ms', '40 milliseconds to 500 milliseconds, only enter the  number', 'Number in milliseconds');
-    number_range_check(this.i2c_polling, 40, 500, '40', '500', 'i2c device number', 'Number');
+    number_range_check(this.i2c_polling, 40, 500, '40', '500', 'i2c polling number', 'Number');
 
 
 
