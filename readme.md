@@ -1,9 +1,12 @@
 node-red-contrib-i2c-lcd-adafruit-sainsmart
 ===========================================
 
-# Now supports node-red version 1.0.0 or greater
-Requires nodeJS v10 or greater
-Requires npm v4 or or greater
+# Broken for node-red version 1.4 or greater
+I no longer own this device, if you would like to take over this repository just ask and I will x-fer it so you can be the matainer.
+
+node-red version 1.0.0 to 1.2.0
+Requires nodeJS v10 to nodeJS v12
+Requires npm v4 or less
 
 <a href="http://nodered.org" target="_new">Node-RED</a> Node for node-red to interact with Adafruit and sainsmart i2c-lcd's. Also units built using MCP23017 i2c port expander and a HD44780 LCD or compatible 16x2 LCD.
 
